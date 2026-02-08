@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Day | For My Favorite Person</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose-red: #d63384;
+            --soft-pink: #fff5f7;
+        }
+
+        body {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--soft-pink);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Falling Petals */
+        #petal-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+
+        .petal {
+            position: absolute;
+            background: rgba(214, 51, 132, 0.6);
+            border-radius: 150% 0 150% 0;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .header {
+            padding: 60px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            color: var(--rose-red);
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(45px, 8vw, 80px);
+            margin: 0;
+        }
+
+        /* Interactive Section */
+        .bouquet-container {
+            padding: 20px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .rose-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .rose-btn {
+            font-size: 35px;
+            background: white;
+            border: 2px solid var(--rose-red);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .rose-btn:hover { transform: scale(1.1); background: var(--rose-red); }
+
+        .secret-popup {
+            max-width: 500px;
+            margin: 0 auto 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(214, 51, 132, 0.1);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Photo Gallery */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .photo-card {
+            background: white;
+            padding: 12px 12px 35px 12px;
+            border-radius: 2px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: rotate(var(--rotation));
+            transition: 0.3s ease;
+            position: relative;
+        }
+
+        .photo-card:hover {
+            transform: rotate(0deg) scale(1.03);
+            z-index: 20;
+        }
+
+        .photo-card img, .photo-card video {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-caption {
+            font-family: 'Dancing Script', cursive;
+            font-size: 22px;
+            color: #444;
+            margin-top: 15px;
+        }
+
+        /* Video Play Button Overlay */
+        #video-overlay {
+            position: absolute;
+            top: 12px; left: 12px; 
+            width: calc(100% - 24px); height: 300px;
+            background: rgba(0,0,0,0.3);
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: 0.3s;
+        }
+
+        .nav-btn {
+            display: inline-block;
+            padding: 12px 35px;
+            background: var(--rose-red);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="petal-container"></div>
+
+    <div class="header">
+        <h1>Happy Rose Day, Jaan 🌹</h1>
+        <p style="font-family: 'Dancing Script'; font-size: 22px;">Click a rose to reveal a secret...</p>
+    </div>
+
+    <div class="bouquet-container">
+        <div class="rose-selector">
+            <button class="rose-btn" onclick="revealSecret(1)">🌹</button>
+            <button class="rose-btn" onclick="revealSecret(2)">🥀</button>
+            <button class="rose-btn" onclick="revealSecret(3)">🌷</button>
+        </div>
+
+        <div id="secret-box" class="secret-popup">
+            <h3 id="secret-title" style="font-family: 'Great Vibes'; font-size: 28px; color: var(--rose-red);"></h3>
+            <p id="secret-text" style="font-family: 'Dancing Script'; font-size: 20px;"></p>
+        </div>
+    </div>
+
+    <div class="photo-grid">
+        <div class="photo-card" style="--rotation: -2deg;">
+            <img src="R1FirstPic.jpg" alt="Memory 1">
+            <div class="photo-caption">First photo you sent me. ❤️</div>
+        </div>
+
+        <div class="photo-card" style="--rotation: 2deg;">
+            <video id="memory-video" playsinline>
+                <source src="R2.mp4" type="video/mp4">
+            </video>
+            <div id="video-overlay" onclick="toggleVideo()">
+                <span style="font-size: 50px; color: white; filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));">▶️</span>
+            </div>
+            <div class="photo-caption">The smile I fell for 🔊</div>
+        </div>
+
+        <div class="photo-card" style="--rotation: -1deg;">
+            <img src="ROSEDec1.JPG" alt="Memory 3">
+            <div class="photo-caption">My ROSE.</div>
+        </div>
+    </div>
+
+    <a href="index.html" class="nav-btn">← Back to Home</a>
+
+    <script>
+        const secrets = {
+            1: { title: "A Secret Thought", text: "Even though we're miles apart, I feel your heart every time I close my eyes." },
+            2: { title: "My Promise", text: "Distance is just a number. My love for you is infinite." },
+            3: { title: "Tum mujhse pyar kyu ni karte", text: "I love you more than all these roses combined! 🌸. Pata hai kab ni karta.... Well there is no such thing" }
+        };
+
+        function revealSecret(id) {
+            const box = document.getElementById('secret-box');
+            document.getElementById('secret-title').innerText = secrets[id].title;
+            document.getElementById('secret-text').innerText = secrets[id].text;
+            box.style.display = 'block';
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function toggleVideo() {
+            const video = document.getElementById('memory-video');
+            const overlay = document.getElementById('video-overlay');
+            if (video.paused) {
+                video.play();
+                overlay.style.opacity = '0';
+                overlay.style.pointerEvents = 'none';
+                video.setAttribute("controls","controls");
+            }
+        }
+
+        // Petal generation
+        function createPetal() {
+            const container = document.getElementById('petal-container');
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.style.width = Math.random() * 15 + 10 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 3 + 4 + 's';
+            container.appendChild(petal);
+            setTimeout(() => petal.remove(), 7000);
+        }
+        setInterval(createPetal, 400);
+    </script>
+</body>
+</html>
