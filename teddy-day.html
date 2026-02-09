@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teddy Day | A Squeeze for You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --soft-brown: #8d6e63;
+            --bg-cream: #fff9f0;
+            --heart-red: #ff4d6d;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .header { margin-top: 50px; padding: 0 20px; }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--soft-brown);
+            font-size: clamp(28px, 5vw, 40px);
+        }
+
+        /* Teddy Interaction */
+        .teddy-zone {
+            margin: 40px 0;
+            cursor: pointer;
+            z-index: 10;
+            position: relative;
+        }
+
+        .teddy-emoji {
+            font-size: 130px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .progress-container {
+            width: 200px;
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 20px auto;
+            overflow: hidden;
+            border: 2px solid white;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--heart-red);
+            transition: width 0.1s linear;
+        }
+
+        /* Photo Reveal Section */
+        #photo-reveal {
+            display: none;
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* Polaroid Style for the 4 Photos */
+        .polaroid {
+            background: white;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transform: rotate(var(--r));
+            transition: 0.3s;
+        }
+        .polaroid:hover { transform: rotate(0deg) scale(1.05); z-index: 5; }
+
+        .polaroid img { width: 100%; height: 250px; object-fit: cover; }
+
+        /* Larger Style for the 2 Collages */
+        .collage-card {
+            grid-column: span 1;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        @media (min-width: 600px) { .collage-card { grid-column: span 2; } }
+
+        .collage-card img { width: 100%; border-radius: 10px; }
+
+        .caption {
+            font-family: 'Dancing Script', cursive;
+            font-size: 20px;
+            margin-top: 10px;
+            color: var(--soft-brown);
+        }
+
+        .squeeze-anim { animation: pulse 0.8s infinite alternate; }
+        @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.15); } }
+
+        .back-link { margin: 50px 0; display: inline-block; color: var(--soft-brown); text-decoration: none; font-weight: bold; border-bottom: 2px solid; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>You're My Favorite Teddy 🧸</h1>
+        <p id="hint-text" style="color: #a1887f;">Give the teddy a long squeeze (hold) to see a secret...</p>
+    </div>
+
+    <div class="teddy-zone" id="main-teddy" 
+         onmousedown="startHold()" onmouseup="endHold()" 
+         ontouchstart="startHold()" ontouchend="endHold()">
+        
+        <span class="teddy-emoji" id="teddy-face">🧸</span>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="p-bar"></div>
+        </div>
+    </div>
+
+    <div id="photo-reveal">
+        <h2 style="font-family: 'Dancing Script'; color: var(--heart-red); font-size: 35px;">Hug Received! ❤️</h2>
+        <p style="color: #8d6e63; font-style: italic;">"I don't need a teddy as long as I have you..."</p>
+
+        <div class="photo-grid">
+            <div class="polaroid" style="--r: -2deg;">
+                <img src="teddys1.JPEG" alt="You and Teddy">
+                <div class="caption">Cutest pair ever!</div>
+            </div>
+            <div class="polaroid" style="--r: 3deg;">
+                <img src="teddys2.JPEG" alt="You and Teddy">
+                <div class="caption">I'm jealous of that teddy...</div>
+            </div>
+            <div class="polaroid" style="--r: -3deg;">
+                <img src="teddys3.JPEG" alt="You and Teddy">
+                <div class="caption">Pure cuteness.</div>
+            </div>
+            <div class="polaroid" style="--r: -3deg;">
+                <img src="her.JPEG" alt="You and Teddy">
+                <div class="caption">Just my Jaan.</div>
+            </div>
+            <div class="polaroid" style="--r: 2deg;">
+                <img src="teddys6.JPEG" alt="You and Teddy">
+                <div class="caption">The wierdest teddy from me to you.</div>
+            </div>
+            <div class="polaroid" style="--r: 2deg;">
+                <img src="ted7.JPG" alt="">
+                <div class="caption">My Christmas Gift.</div>
+            </div>
+        </div>
+        <div class="photo-grid">
+             <div class="collage-card">
+                <img src="Jaan.JPEG" alt="Teddy Lookalike Collage">
+                <div class="caption">Proof that you're actually a teddy bear in human form 🧸✨</div>
+            </div>
+         </div>  
+        <a href="index.html" class="back-link">← Back to our journey</a>
+    </div>
+
+    <script>
+        let holdTimer;
+        let progress = 0;
+        let isHolding = false;
+        const duration = 3000; // 2.5 seconds hold time
+        const step = 50;
+
+        const bar = document.getElementById('p-bar');
+        const face = document.getElementById('teddy-face');
+        const hint = document.getElementById('hint-text');
+
+        function startHold() {
+            isHolding = true;
+            face.classList.add('squeeze-anim');
+            hint.innerText = "Holding on tight... ❤️";
+            
+            holdTimer = setInterval(() => {
+                progress += step;
+                bar.style.width = Math.min((progress / duration) * 100, 100) + "%";
+
+                if (progress >= duration) {
+                    clearInterval(holdTimer);
+                    showSecret();
+                }
+            }, step);
+        }
+
+        function endHold() {
+            if (!isHolding) return;
+            isHolding = false;
+            face.classList.remove('squeeze-anim');
+            clearInterval(holdTimer);
+            
+            if (progress < duration) {
+                progress = 0;
+                bar.style.width = "0%";
+                hint.innerText = "Hold a little longer! 🥺";
+            }
+        }
+
+        function showSecret() {
+            document.getElementById('main-teddy').style.display = 'none';
+            document.getElementById('hint-text').style.display = 'none';
+            document.getElementById('photo-reveal').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
