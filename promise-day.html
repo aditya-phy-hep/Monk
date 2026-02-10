@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Day | My Vows to You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --promise-blue: #a2d2ff;
+            --deep-blue: #003049;
+            --accent: #ff8652;
+        }
+
+        body {
+            background-color: var(--promise-blue);
+            color: var(--deep-blue);
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 45px;
+            margin: 0;
+        }
+
+        /* The Promise Cards */
+        .promise-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .promise-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .locked-content {
+            border: 2px dashed var(--accent);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .locked-content:hover {
+            background: #fff5f0;
+        }
+
+        .video-box {
+            display: none;
+            margin-top: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: black;
+            animation: expand 0.5s ease;
+        }
+
+        @keyframes expand { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+        video { width: 100%; display: block; }
+
+        .vow-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #d62828;
+        }
+
+        .pinky-icon {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            margin: 40px 0;
+            color: var(--deep-blue);
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>My Promises to You</h1>
+        <p>I know baby, I fail alot, I learn a little, really slow. Nevertheless see I have learnt keep you happy over the period of time (OKAY !! Not always, I know sometimes I fuck up really bad). How can't I not learn, I have the most beautiful teacher in the world, whom forutantely I love the most too. I promise to learn even faster and reach that absolute where you will feel that I am keeping you happy and fulfilled in all possible you. (nunu ka kuch ni kar sakte, but uska jyada kaam bhi ni :| so). A HAPPY PROMISE DAY JAAN </p>
+    </div>
+
+    <div class="promise-container">
+        
+        <div class="promise-card">
+            <div class="vow-text">"I promise to always fill you with joy and keep that beautiful smile alive."</div>
+            
+            <div id="lock1" class="locked-content" onclick="unlock(1)">
+                <span class="pinky-icon">🤙</span>
+                <p>Tap to Pinky Promise & Unlock</p>
+            </div>
+
+            <div id="video1" class="video-box">
+                <video id="vid-happiness" playsinline>
+                    <source src="Food.mp4" type="video/mp4">
+                </video>
+                <p style="font-size: 13px; padding: 10px; background: white; margin: 0;">Seeing you happy is my favorite mission. ❤️</p>
+            </div>
+        </div>
+
+        <div class="promise-card">
+            <div class="vow-text">"If I kept mine, you also promise me to always be like this video."</div>
+            
+            <div id="lock2" class="locked-content" onclick="unlock(2)">
+                <span class="pinky-icon">🤙</span>
+                <p>Tap to Pinky Promise & Unlock</p>
+            </div>
+
+            <div id="video2" class="video-box">
+                <video id="vid-comfort" playsinline>
+                    <source src="Cat.mp4" type="video/mp4">
+                </video>
+                <p style="font-size: 13px; padding: 10px; background: white; margin: 0;">Purr-fect moments with my purr-fect girl. 🐾</p>
+            </div>
+        </div>
+
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+    <script>
+        function unlock(num) {
+            const lock = document.getElementById('lock' + num);
+            const videoBox = document.getElementById('video' + num);
+            const video = videoBox.querySelector('video');
+
+            // Hide the lock UI
+            lock.style.display = 'none';
+            // Show the video
+            videoBox.style.display = 'block';
+            video.controls = true;
+            video.play();
+        }
+    </script>
+</body>
+</html>
