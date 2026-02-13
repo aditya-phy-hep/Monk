@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Forever Valentine ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root { --primary: #ff4d6d; --dark: #590d22; }
+        
+        body { background: #000; margin: 0; font-family: 'Montserrat', sans-serif; overflow: hidden; color: white; transition: background 2s; }
+        
+        /* The Opening Stage */
+        #envelope-stage { 
+            height: 100vh; display: flex; align-items: center; justify-content: center; 
+            background: radial-gradient(circle, #800e21 0%, #000000 100%); cursor: pointer; 
+            flex-direction: column; z-index: 1000; position: relative;
+        }
+
+        .seal-container { position: relative; width: 150px; height: 150px; }
+        .seal { font-size: 100px; animation: heartbeat 1.2s infinite; display: inline-block; }
+        @keyframes heartbeat { 0% {transform: scale(1);} 50% {transform: scale(1.15);} 100% {transform: scale(1);} }
+
+        /* The Main Content */
+        #final-content { 
+            display: none; padding: 40px 15px; text-align: center; 
+            background: linear-gradient(180deg, #ff4d6d 0%, #590d22 100%); 
+            min-height: 100vh; position: relative;
+        }
+
+        .v-header { font-family: 'Dancing Script', cursive; font-size: clamp(50px, 10vw, 85px); margin: 20px 0; text-shadow: 0 0 20px rgba(255,255,255,0.6); }
+
+        .video-stack { display: flex; flex-direction: column; align-items: center; gap: 40px; margin: 40px 0; }
+        .loud-video { 
+            width: 100%; max-width: 450px; border-radius: 20px; 
+            border: 6px solid white; box-shadow: 0 15px 50px rgba(0,0,0,0.5); 
+        }
+        
+        .photo-stack { display: flex; flex-direction: column; align-items: center; gap: 60px; margin-top: 50px; }
+        .polaroid { background: white; padding: 15px 15px 35px 15px; width: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .polaroid img { width: 100%; height: 350px; object-fit: cover; display: block; }
+        .caption { color: #333; font-family: 'Dancing Script', cursive; font-size: 20px; margin-top: 15px; }
+
+
+        /* The Letter */
+        .letter { 
+            background: #fffafa; color: #590d22; padding: 50px 30px; border-left: 10px solid #ff4d6d;
+            border-radius: 5px 5px 50px 5px; max-width: 600px; margin: 60px auto; 
+            font-family: 'Dancing Script', cursive; font-size: 28px; line-height: 1.6; 
+            text-align: left; box-shadow: 15px 15px 0px var(--dark);
+            position: relative;
+        }
+        .letter:before { content: "❤️"; position: absolute; top: -20px; right: -20px; font-size: 40px; }
+
+        /* Floating Hearts Layer */
+        #heart-rain-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 500; }
+        .floating-heart { position: absolute; color: rgba(255,255,255,0.8); animation: floatUp linear forwards; }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+        }
+
+        .back-home { color: white; text-decoration: none; border-bottom: 1px solid white; margin: 50px 0; display: inline-block; opacity: 0.7; }
+    </style>
+</head>
+<body>
+
+    <div id="envelope-stage" onclick="revealValentine()">
+        <div class="seal-container">
+            <span class="seal">✉️</span>
+        </div>
+        <h2 style="font-weight: 300; letter-spacing: 3px; margin-top: 20px;">FOR YOUR EYES ONLY</h2>
+        <p style="opacity: 0.6; font-size: 14px;">(Tap to open my heart)</p>
+    </div>
+
+    <audio id="vSong" loop>
+        <source src="valentine_song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="final-content">
+        <div id="heart-rain-container"></div>
+        
+        <h1 class="v-header">Be My Valentine? ❤️</h1>
+        <div class="video-stack">
+            <video class="loud-video" controls playsinline><source src="V1.mp4" type="video/mp4"></video>
+        </div>
+        <div class="photo-stack">
+            <div class="polaroid" style="transform: rotate(-2deg);"><img src="V1.JPG"><div class="caption"> </div></div>
+            <div class="polaroid" style="transform: rotate(-1deg);"><img src="V2.JPG"><div class="caption"> </div></div>
+        </div>    
+        <div class="video-stack">
+            <video class="loud-video" controls playsinline><source src="V2.mp4" type="video/mp4"></video>
+        </div>
+<div class="photo-stack">
+            <div class="polaroid" style="transform: rotate(-2deg);"><img src="V4.JPG"><div class="caption"> </div></div>
+            <div class="polaroid" style="transform: rotate(-1deg);"><img src="V3.JPG"><div class="caption"> </div></div>
+        </div>
+        <div class="video-stack">
+            <video class="loud-video" controls playsinline><source src="V3.mp4" type="video/mp4"></video>
+        </div>
+        <div class="photo-stack">
+            <div class="polaroid" style="transform: rotate(-2deg);"><img src="V5.JPG"><div class="caption"> </div></div>
+            <div class="polaroid" style="transform: rotate(-1deg);"><img src="V6.JPG"><div class="caption"> </div></div>
+        </div>
+        <div class="letter">
+            To my GUPPPU,<br><br>
+            They say distance makes the heart grow fonder, but I think it just makes every second with you more precious. Thank you for being my constant in this crazy world, for the laughs, the late-night talks, and for loving me even when we're miles apart.<br><br>
+            This website is just a small piece of how much you mean to me. I can’t wait for the day when I don’t have to click a link to see your smile.<br><br>
+            Happy Valentine's Day, Jaan. I am yours, always.<br><br>
+            Forever & Always, <br>
+            Baabu
+        </div>
+
+        <div id="extra-photos" style="padding-bottom: 50px;">
+             </div>
+
+        <a href="index.html" class="back-home">Return to Our Journey</a>
+    </div>
+
+    <script>
+        function revealValentine() {
+            // 1. Confetti Burst
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: ['#ffffff', '#ff4d6d', '#ff85a1']
+            });
+
+            // 2. Music and View Swap
+            document.getElementById('vSong').play();
+            document.getElementById('envelope-stage').style.display = 'none';
+            document.getElementById('final-content').style.display = 'block';
+            document.body.style.overflow = 'auto';
+            document.body.style.background = '#ff4d6d';
+
+            // 3. Start Continuous Heart Rain
+            setInterval(createHeart, 300);
+        }
+
+        function createHeart() {
+            const container = document.getElementById('heart-rain-container');
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            
+            // Randomize heart icon
+            const types = ['❤️', '💖', '💝', '💕', '✨'];
+            heart.innerText = types[Math.floor(Math.random() * types.length)];
+            
+            // Randomize position and size
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            
+            // Randomize duration
+            const duration = Math.random() * 3 + 4; // 4-7 seconds
+            heart.style.animationDuration = duration + 's';
+            
+            container.appendChild(heart);
+
+            // Remove heart after animation ends to keep page fast
+            setTimeout(() => { heart.remove(); }, duration * 1000);
+        }
+    </script>
+</body>
+</html>
