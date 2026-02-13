@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiss Day | Clearing the Distance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; background: #1a0a0d; color: white; font-family: 'Quicksand', sans-serif; overflow-x: hidden; text-align: center; }
+        canvas { position: fixed; top: 0; left: 0; z-index: 10; cursor: crosshair; touch-action: none; }
+        .content { position: relative; z-index: 1; padding: 50px 20px; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 50px; color: #ff4d6d; }
+        .video-box { width: 100%; max-width: 400px; border-radius: 20px; border: 5px solid #ff4d6d; margin: 30px auto; display: block; position: relative; z-index: 5; }
+        .photo-stack { display: flex; flex-direction: column; align-items: center; gap: 60px; margin-top: 50px; }
+        .polaroid { background: white; padding: 15px 15px 35px 15px; width: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .polaroid img { width: 100%; height: 350px; object-fit: cover; display: block; }
+        .caption { color: #333; font-family: 'Dancing Script', cursive; font-size: 20px; margin-top: 15px; }
+        #instruction { position: fixed; bottom: 20px; width: 100%; z-index: 20; color: rgba(255,255,255,0.7); pointer-events: none; }
+    </style>
+</head>
+<body>
+    <div id="instruction">Wipe the screen to find me...</div>
+    <canvas id="fogCanvas"></canvas>
+
+    <div class="content">
+        <h1>Happy Kiss Day 💋</h1>
+        
+        <video class="video-box" id="kissVid" playsinline controls muted>
+            <source src="first-gift.mp4" type="video/mp4">
+        </video>
+        <div class="photo-stack">
+            <div class="polaroid" style="transform: rotate(-2deg);"><img src="ks1.JPG"><div class="caption">Counting the days...</div></div>
+            <div class="polaroid" style="transform: rotate(3deg);"><img src="ks2.JPG"><div class="caption">One kiss closer to forever.</div></div>
+            <div class="polaroid" style="transform: rotate(-1deg);"><img src="ks3.JPG"><div class="caption">Distance is just a test to see how far love can travel.</div></div>
+            <div class="polaroid" style="transform: rotate(-3deg);"><img src="ks5.JPG"><div class="caption">You’re my favorite person to miss.</div></div>
+            <div class="polaroid" style="transform: rotate(1deg);"><img src="ks6.JPG"><div class="caption">Just a little something to remind you how much you're loved.</div></div>
+            <div class="polaroid" style="transform: rotate(-2deg);"><img src="ks7.JPG"><div class="caption">Saving all my real-life kisses for when I finally see you.</div></div>
+        </div>
+        
+        <br><br>
+        <a href="index.html" style="color: #ff4d6d; text-decoration: none; font-weight: bold;">← Back to Home</a>
+        <div style="height: 100px;"></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('fogCanvas');
+        const ctx = canvas.getContext('2d');
+        const video = document.getElementById('kissVid');
+        let hasStarted = false;
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx.fillStyle = '#4a4a4a'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalCompositeOperation = 'destination-out';
+        }
+
+        function scrub(x, y) {
+            if (!hasStarted) {
+                // Try playing muted first (highly successful)
+                video.play().then(() => {
+                    // If it plays, unmute it after 100ms
+                    setTimeout(() => { video.muted = false; }, 100);
+                }).catch(err => {
+                    console.log("Waiting for more clear interaction");
+                });
+                document.getElementById('instruction').style.opacity = "0";
+                hasStarted = true;
+            }
+            ctx.beginPath();
+            ctx.arc(x, y, 60, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        canvas.addEventListener('mousemove', (e) => scrub(e.clientX, e.clientY));
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            scrub(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: false });
+
+        window.addEventListener('resize', init);
+        init();
+        
+        // Final fallback: if she clicks anywhere on the screen, try to play the video
+        window.addEventListener('click', () => {
+            if (video.paused) {
+                video.muted = false;
+                video.play();
+            }
+        });
+    </script>
+</body>
+</html>
